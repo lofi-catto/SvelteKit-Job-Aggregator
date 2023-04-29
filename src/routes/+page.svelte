@@ -4,6 +4,12 @@
 
   let { title, body, jobsQuery } = pages[0];
   let jobs = jobsQuery.jobs;
+
+  let value = '';
+
+  $: filtered = jobs.filter((item) =>
+    item.title.toLowerCase().includes(value.toLowerCase())
+  );
 </script>
 
 <svelte:head>
@@ -21,7 +27,31 @@
   </div>
   <div class="my-6">
     <div class="mt-6">
-      {#each jobs as job (job.id)}
+      <div class="relative">
+        <input
+          type="text"
+          class="w-full border border-gray-700 rounded-md pl-10 pr-4 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          placeholder="Search for a job"
+          bind:value
+        />
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6 text-gray-400"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+            />
+          </svg>
+        </div>
+      </div>
+      {#each value !== "" ? filtered : jobs as job (job.id)}
         <div
           key={job.id}
           class="shadow-md border border-gray-700 overflow-hidden sm:rounded-lg mt-6 p-6"
