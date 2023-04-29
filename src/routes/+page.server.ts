@@ -11,24 +11,23 @@ export async function load() {
 	const QUERY = gql`
 		{
 			pages {
+				body
 				id
 				title
-				body {
-					html
-				}
 				jobsQuery {
 					jobs {
-						id
-						url
-						title
-						company_name
-						company_logo
+						candidate_required_location
 						category
+						company_logo
+						company_name
+						description
+						id
 						job_type
 						publication_date
-						candidate_required_location
 						salary
+						title
 						tags
+						url
 					}
 				}
 			}
